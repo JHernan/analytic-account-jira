@@ -46,3 +46,4 @@
 # Dev
 .idea/
 .web-server-pid
+.env

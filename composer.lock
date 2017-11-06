@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c400b0d52644469398fd84f698de3f2",
+    "content-hash": "b91e05192f5b82ac527ec44116c083b5",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -989,6 +989,57 @@
             "time": "2014-01-12T16:20:24+00:00"
         },
         {
+            "name": "lesstif/php-jira-rest-client",
+            "version": "1.13.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lesstif/php-jira-rest-client.git",
+                "reference": "797d3683d4ac4a6c9551fe27a44889b7bdb8f715"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lesstif/php-jira-rest-client/zipball/797d3683d4ac4a6c9551fe27a44889b7bdb8f715",
+                "reference": "797d3683d4ac4a6c9551fe27a44889b7bdb8f715",
+                "shasum": ""
+            },
+            "require": {
+                "monolog/monolog": "~1.12",
+                "netresearch/jsonmapper": "~0.11|^1.0",
+                "php": ">=5.5.9",
+                "vlucas/phpdotenv": "~2.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.4",
+                "phpunit/phpunit": ">=5.7 <6",
+                "symfony/var-dumper": "~2.8|~3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JiraRestApi\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "KwangSeob Jeong",
+                    "email": "lesstif@gmail.com",
+                    "homepage": "http://lesstif.com/"
+                }
+            ],
+            "description": "JIRA REST API Client for PHP Users.",
+            "keywords": [
+                "jira",
+                "jira-php",
+                "jira-rest",
+                "rest"
+            ],
+            "time": "2017-08-01T15:43:25+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.23.0",
             "source": {
@@ -1065,6 +1116,48 @@
                 "psr-3"
             ],
             "time": "2017-06-19T01:22:40+00:00"
+        },
+        {
+            "name": "netresearch/jsonmapper",
+            "version": "v1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cweiske/jsonmapper.git",
+                "reference": "b94ffe5b237a697253f06f5a57d9b22292bfffb3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/b94ffe5b237a697253f06f5a57d9b22292bfffb3",
+                "reference": "b94ffe5b237a697253f06f5a57d9b22292bfffb3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.2.*",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JsonMapper": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "OSL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Christian Weiske",
+                    "email": "cweiske@cweiske.de",
+                    "homepage": "http://github.com/cweiske/jsonmapper/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Map nested JSON structures onto PHP classes",
+            "time": "2017-08-14T07:26:24+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2247,6 +2340,56 @@
                 "templating"
             ],
             "time": "2017-09-27T18:06:46+00:00"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "v2.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "reference": "3cc116adbe4b11be5ec557bf1d24dc5e3a21d18c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause-Attribution"
+            ],
+            "authors": [
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "http://www.vancelucas.com"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "time": "2016-09-01T10:05:43+00:00"
         }
     ],
     "packages-dev": [
@@ -2375,8 +2518,5 @@
     "platform": {
         "php": ">=5.5.9"
     },
-    "platform-dev": [],
-    "platform-overrides": {
-        "php": "5.5.9"
-    }
+    "platform-dev": []
 }
