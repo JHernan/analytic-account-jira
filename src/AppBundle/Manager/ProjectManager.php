@@ -9,41 +9,46 @@
 namespace AppBundle\Manager;
 
 
-use Doctrine\ORM\EntityManager;
+use AppBundle\Manager\ComponentManager;
 use JiraRestApi\Project\ProjectService;
-use AppBundle\Entity\Component;
 
 
 class ProjectManager
 {
-    private $em;
+    private $componentManager;
+    private $projectService;
     private $key;
 
-    public function __construct(EntityManager $em, $key)
+    /**
+     * ProjectManager constructor.
+     * @param \AppBundle\Manager\ComponentManager $componentManager
+     * @param ProjectService $projectService
+     * @param $key
+     */
+    public function __construct(ComponentManager $componentManager, ProjectService $projectService, $key)
     {
-        $this->em = $em;
+        $this->componentManager = $componentManager;
+        $this->projectService = $projectService;
         $this->key = $key;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProject(){
+        return $this->projectService->get($this->key);
     }
 
     public function save(){
         $project = $this->getProject($this->key);
 
-        $this->saveComponents($project);
+        $this->saveComponents($project->components);
     }
 
-    public function getProject(){
-        $projectService = new ProjectService();
-
-        return $projectService->get($this->key);
-    }
-
-    public function saveComponents($project){
-        foreach($project->components as $item){
-            $component = new Component();
-            $component->setJiraId($item->id);
-            $component->setName($item->name);
-            $this->em->persist($component);
-        }
-        $this->em->flush();
+    /**
+     * @param $components
+     */
+    public function saveComponents($components){
+        $this->componentManager->save($components);
     }
 }
