@@ -14,12 +14,13 @@ class ProjectManagerTest extends TestCase
     public function testGetProject(){
         $componentManager = $this->createMock(\AppBundle\Manager\ComponentManager::class);
         $versionManager = $this->createMock(\AppBundle\Manager\VersionManager::class);
+        $issueTypeManager = $this->createMock(\AppBundle\Manager\IssueTypeManager::class);
         $projectService = $this->createMock(\JiraRestApi\Project\ProjectService::class);
         $projectService->expects($this->exactly(1))
             ->method('get')
             ->with('MTC');
 
-        $projectManager = new ProjectManager($componentManager, $versionManager, $projectService, 'MTC');
+        $projectManager = new ProjectManager($componentManager, $versionManager, $issueTypeManager, $projectService, 'MTC');
         $projectManager->getProject();
     }
 }

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Manager\VersionManager;
 
-class VersionManagerTest
+class VersionManagerTest extends TestCase
 {
     public function testCreateVersion(){
         $em = $this->createMock(EntityManager::class);
@@ -24,8 +24,8 @@ class VersionManagerTest
         $versionManager = new VersionManager($em, 'MTC');
 
         $versions = array(
-            'c1' => (object) array('id' => '1', 'name' => 'Name1'),
-            'c2' => (object) array('id' => '2', 'name' => 'Name2')
+            'v1' => (object) array('id' => '1', 'name' => 'Name1'),
+            'v2' => (object) array('id' => '2', 'name' => 'Name2')
         );
 
         $versionManager->save($versions);
