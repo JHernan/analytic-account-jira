@@ -35,6 +35,18 @@ services:
     #         $someArgument: 'some_value'
 
     AppBundle\Manager\ProjectManager:
-        public: true;
+        public: true
         arguments:
+            $componentManager: '@AppBundle\Manager\ComponentManager'
+            $projectService: '@JiraRestApi\Project\ProjectService'
             $key: '%project_key%'
+
+    AppBundle\Manager\ComponentManager:
+        public: true
+        arguments:
+            $em: '@doctrine.orm.default_entity_manager'
+
+
+    # Services JiraRestAPI
+    JiraRestApi\Project\ProjectService:
+        public: true
