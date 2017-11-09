@@ -7,11 +7,12 @@
  */
 
 use PHPUnit\Framework\TestCase;
-use AppBundle\Manager\ProjectManager;
+use AppBundle\Handler\ProjectHandler;
 
-class ProjectManagerTest extends TestCase
+class ProjectHandlerTest extends TestCase
 {
     public function testGetProject(){
+        $projectManager = $this->createMock(\AppBundle\Manager\ProjectManager::class);
         $componentManager = $this->createMock(\AppBundle\Manager\ComponentManager::class);
         $versionManager = $this->createMock(\AppBundle\Manager\VersionManager::class);
         $issueTypeManager = $this->createMock(\AppBundle\Manager\IssueTypeManager::class);
@@ -20,7 +21,7 @@ class ProjectManagerTest extends TestCase
             ->method('get')
             ->with('MTC');
 
-        $projectManager = new ProjectManager($componentManager, $versionManager, $issueTypeManager, $projectService, 'MTC');
+        $projectManager = new ProjectHandler($projectManager, $componentManager, $versionManager, $issueTypeManager, $projectService, 'MTC');
         $projectManager->getProject();
     }
 }

@@ -2,10 +2,10 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Manager\ProjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Handler\ProjectHandler;
 
 class DefaultController extends Controller
 {
@@ -14,8 +14,8 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $projectManager = $this->get(ProjectManager::class);
-        $projectManager->save();
+        $projectHandler = $this->get(ProjectHandler::class);
+        $projectHandler->save();
 
 
         // replace this example code with whatever you need

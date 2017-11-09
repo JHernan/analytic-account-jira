@@ -8,69 +8,40 @@
 
 namespace AppBundle\Manager;
 
+use AppBundle\Entity\Project;
+use Doctrine\ORM\EntityManager;
 
-use AppBundle\Manager\ComponentManager;
-use AppBundle\Manager\VersionManager;
-use AppBundle\Manager\IssueTypeManager;
-use JiraRestApi\Project\ProjectService;
+class ProjectManager{
 
+    private $em;
 
-class ProjectManager
-{
-    private $componentManager;
-    private $versionManager;
-    private $issueTypeManager;
-    private $projectService;
-    private $key;
-
-    /**
-     * ProjectManager constructor.
-     * @param \AppBundle\Manager\ComponentManager $componentManager
-     * @param ProjectService $projectService
-     * @param $key
-     */
-    public function __construct(ComponentManager $componentManager, VersionManager $versionManager, IssueTypeManager $issueTypeManager, ProjectService $projectService, $key)
+    public function __construct(EntityManager $em)
     {
-        $this->componentManager = $componentManager;
-        $this->versionManager = $versionManager;
-        $this->issueTypeManager = $issueTypeManager;
-        $this->projectService = $projectService;
-        $this->key = $key;
+        $this->em = $em;
+    }
+
+    public function save($item){
+        $project = $this->createProject();
+        $project = $this->setProjectData($project, $item);
+
+        $this->em->persist($project);
+        $this->em->flush();
     }
 
     /**
-     * @return string
+     * @param $project
+     * @param $item
+     * @return mixed
      */
-    public function getProject(){
-        return $this->projectService->get($this->key);
+    private function setProjectData($project, $item){
+        $project->setJiraId($item->id);
+        $project->setName($item->name);
+        $project->setShort($item->key);
+
+        return $project;
     }
 
-    public function save(){
-        $project = $this->getProject($this->key);
-
-        $this->saveComponents($project->components);
-        $this->saveVersions($project->versions);
-        $this->saveIssueTypes($project->issueTypes);
-    }
-
-    /**
-     * @param $components
-     */
-    private function saveComponents($components){
-        $this->componentManager->save($components);
-    }
-
-    /**
-     * @param $versions
-     */
-    private function saveVersions($versions){
-        $this->versionManager->save($versions);
-    }
-
-    /**
-     * @param $issueTypes
-     */
-    private function saveIssueTypes($issueTypes){
-        $this->issueTypeManager->save($issueTypes);
+    private function createProject(){
+        return new Project();
     }
 }
