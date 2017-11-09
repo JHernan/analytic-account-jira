@@ -44,6 +44,13 @@ services:
             $projectService: '@JiraRestApi\Project\ProjectService'
             $key: '%project_key%'
 
+    AppBundle\Handler\IssueHandler:
+        public: true
+        arguments:
+            $issueManager: '@AppBundle\Manager\IssueManager'
+            $issueService: '@JiraRestApi\Issue\IssueService'
+
+
     AppBundle\Manager\ProjectManager:
         public: true
         arguments:
@@ -67,4 +74,6 @@ services:
 
     # Services JiraRestAPI
     JiraRestApi\Project\ProjectService:
+        public: true
+    JiraRestApi\Issue\IssueService:
         public: true

@@ -29,16 +29,16 @@ class Issue
     private $summary;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="issueType", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="IssueType", inversedBy="issues")
+     * @ORM\JoinColumn(name="type_id", referencedColumnName="id")
      */
-    private $issueType;
+    private $type;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="timespent", type="integer")
+     * @ORM\Column(name="timespent", type="integer", nullable=true)
      */
     private $timespent;
 
