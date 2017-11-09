@@ -10,12 +10,14 @@ namespace AppBundle\Manager;
 
 
 use AppBundle\Manager\ComponentManager;
+use AppBundle\Manager\VersionManager;
 use JiraRestApi\Project\ProjectService;
 
 
 class ProjectManager
 {
     private $componentManager;
+    private $versionManager;
     private $projectService;
     private $key;
 
@@ -25,9 +27,10 @@ class ProjectManager
      * @param ProjectService $projectService
      * @param $key
      */
-    public function __construct(ComponentManager $componentManager, ProjectService $projectService, $key)
+    public function __construct(ComponentManager $componentManager, VersionManager $versionManager, ProjectService $projectService, $key)
     {
         $this->componentManager = $componentManager;
+        $this->versionManager = $versionManager;
         $this->projectService = $projectService;
         $this->key = $key;
     }
@@ -43,12 +46,20 @@ class ProjectManager
         $project = $this->getProject($this->key);
 
         $this->saveComponents($project->components);
+        $this->saveVersions($project->versions);
     }
 
     /**
      * @param $components
      */
-    public function saveComponents($components){
+    private function saveComponents($components){
         $this->componentManager->save($components);
+    }
+
+    /**
+     * @param $versions
+     */
+    private function saveVersions($versions){
+        $this->versionManager->save($versions);
     }
 }

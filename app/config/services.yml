@@ -38,10 +38,16 @@ services:
         public: true
         arguments:
             $componentManager: '@AppBundle\Manager\ComponentManager'
+            $versionManager: '@AppBundle\Manager\VersionManager'
             $projectService: '@JiraRestApi\Project\ProjectService'
             $key: '%project_key%'
 
     AppBundle\Manager\ComponentManager:
+        public: true
+        arguments:
+            $em: '@doctrine.orm.default_entity_manager'
+
+    AppBundle\Manager\VersionManager:
         public: true
         arguments:
             $em: '@doctrine.orm.default_entity_manager'
