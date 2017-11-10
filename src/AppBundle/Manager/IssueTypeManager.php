@@ -30,6 +30,9 @@ class IssueTypeManager
         $this->em->flush();
     }
 
+    /**
+     * @return array
+     */
     public function findAll(){
         return $this->em->getRepository('AppBundle:IssueType')->findAll();
     }

@@ -38,6 +38,13 @@ class ComponentManager
     }
 
     /**
+     * @return array
+     */
+    public function findAll(){
+        return $this->em->getRepository('AppBundle:Component')->findAll();
+    }
+
+    /**
      * @param $component
      * @param $item
      * @return mixed

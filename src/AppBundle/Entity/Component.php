@@ -35,6 +35,15 @@ class Component
      */
     private $name;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Issue", mappedBy="components")
+     */
+    private $issues;
+
+
+    public function __construct() {
+        $this->issues = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -92,6 +101,22 @@ class Component
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIssues()
+    {
+        return $this->issues;
+    }
+
+    /**
+     * @param mixed $issues
+     */
+    public function setIssues($issues)
+    {
+        $this->issues = $issues;
     }
 }
 

@@ -71,6 +71,7 @@ services:
         arguments:
             $em: '@doctrine.orm.default_entity_manager'
             $issueTypeManager: '@AppBundle\Manager\IssueTypeManager'
+            $componentManager: '@AppBundle\Manager\ComponentManager'
 
     AppBundle\Manager\IssueTypeManager:
         public: true

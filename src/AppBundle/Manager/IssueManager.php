@@ -15,16 +15,19 @@ class IssueManager
 {
     private $em;
     private $issueTypeManager;
+    private $componentManager;
 
     /**
      * IssueManager constructor.
      * @param EntityManager $em
      * @param IssueTypeManager $issueTypeManager
+     * @param ComponentManager $componentManager
      */
-    public function __construct(EntityManager $em, IssueTypeManager $issueTypeManager)
+    public function __construct(EntityManager $em, IssueTypeManager $issueTypeManager, ComponentManager $componentManager)
     {
         $this->em = $em;
         $this->issueTypeManager = $issueTypeManager;
+        $this->componentManager = $componentManager;
     }
 
     /**
@@ -46,6 +49,7 @@ class IssueManager
      */
     private function setIssueData($issue, $item){
         $this->setIssueType($issue, $item);
+        $this->setComponents($issue, $item);
         $this->setSummary($issue, $item);
         $this->setTimespent($issue, $item);
         $this->setStatus($issue, $item);
@@ -90,6 +94,20 @@ class IssueManager
                 break;
             }
         }
+    }
+
+    private function setComponents($issue, $item){
+        $components = $this->componentManager->findAll();
+        $listComponents = [];
+        foreach($item->fields->components as $itemComponent){
+            foreach($components as $component){
+                if($component->getJiraId() == $itemComponent->id){
+                    array_push($listComponents, $component);
+                }
+            }
+        }
+
+        $issue->setComponents($listComponents);
     }
 
     /**

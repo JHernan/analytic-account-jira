@@ -49,6 +49,15 @@ class Issue
      */
     private $status;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Component", inversedBy="issues")
+     * @ORM\JoinTable(name="issues_components")
+     */
+    private $components;
+
+    public function __construct() {
+        $this->components = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -154,6 +163,22 @@ class Issue
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComponents()
+    {
+        return $this->components;
+    }
+
+    /**
+     * @param mixed $components
+     */
+    public function setComponents($components)
+    {
+        $this->components = $components;
     }
 }
 
