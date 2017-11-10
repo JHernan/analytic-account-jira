@@ -8,12 +8,21 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Handler\IssueHandler;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class loadIssuesCommand extends ContainerAwareCommand
+class LoadIssuesCommand extends ContainerAwareCommand
 {
+    private $issueHandler;
+
+    public function __construct(IssueHandler $issueHandler, $name = null)
+    {
+        $this->issueHandler = $issueHandler;
+        parent::__construct($name);
+    }
+
     protected function configure()
     {
         $this->setName('app:load-issues');
@@ -21,11 +30,8 @@ class loadIssuesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // ...
+        $this->issueHandler->save();
 
-        $issueHandler = $this->getContainer()->get('AppBundle\Handler\IssueHandler');
-        $issueHandler->save();
-
-        $output->writeln('User successfully generated!');
+        $output->writeln('Issues successfully loaded!');
     }
 }

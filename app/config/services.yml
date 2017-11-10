@@ -72,6 +72,12 @@ services:
             $em: '@doctrine.orm.default_entity_manager'
 
 
+    AppBundle\Command\LoadIssuesCommand:
+        public: true
+        arguments:
+            $issueHandler: '@AppBundle\Handler\IssueHandler'
+
+
     # Services JiraRestAPI
     JiraRestApi\Project\ProjectService:
         public: true
