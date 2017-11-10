@@ -66,6 +66,12 @@ services:
         arguments:
             $em: '@doctrine.orm.default_entity_manager'
 
+    AppBundle\Manager\IssueManager:
+        public: true
+        arguments:
+            $em: '@doctrine.orm.default_entity_manager'
+            $issueTypeManager: '@AppBundle\Manager\IssueTypeManager'
+
     AppBundle\Manager\IssueTypeManager:
         public: true
         arguments:

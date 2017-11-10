@@ -12,13 +12,13 @@ use AppBundle\Manager\IssueTypeManager;
 
 class IssueTypeManagerTest extends TestCase
 {
-    public function testCreateIssueType(){
+    public function testSaveIssueType(){
         $em = $this->createMock(EntityManager::class);
 
         $em->expects($this->exactly(2))
             ->method('persist');
 
-        $em->expects($this->exactly(1))
+        $em->expects($this->once())
             ->method('flush');
 
         $issueTypeManager = new IssueTypeManager($em, 'MTC');

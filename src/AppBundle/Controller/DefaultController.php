@@ -17,9 +17,7 @@ class DefaultController extends Controller
     {
 //        $projectHandler = $this->get(ProjectHandler::class);
 //        $projectHandler->save();
-
-        $issueHandler = $this->get(IssueHandler::class);
-        $issueHandler->save();
+        
 
 
         // replace this example code with whatever you need

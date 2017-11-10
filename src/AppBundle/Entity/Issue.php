@@ -85,27 +85,27 @@ class Issue
     }
 
     /**
-     * Set issueType
+     * Set type
      *
-     * @param string $issueType
+     * @param string $type
      *
      * @return Issue
      */
-    public function setIssueType($issueType)
+    public function setType($type)
     {
-        $this->issueType = $issueType;
+        $this->type = $type;
 
         return $this;
     }
 
     /**
-     * Get issueType
+     * Get type
      *
      * @return string
      */
-    public function getIssueType()
+    public function getType()
     {
-        return $this->issueType;
+        return $this->type;
     }
 
     /**

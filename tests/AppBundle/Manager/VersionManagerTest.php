@@ -18,7 +18,7 @@ class VersionManagerTest extends TestCase
         $em->expects($this->exactly(2))
             ->method('persist');
 
-        $em->expects($this->exactly(1))
+        $em->expects($this->once())
             ->method('flush');
 
         $versionManager = new VersionManager($em, 'MTC');

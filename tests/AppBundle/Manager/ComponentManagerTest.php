@@ -12,13 +12,13 @@ use AppBundle\Manager\ComponentManager;
 
 class ComponentManagerTest extends TestCase
 {
-    public function testCreateComponent(){
+    public function testSaveComponent(){
         $em = $this->createMock(EntityManager::class);
 
         $em->expects($this->exactly(2))
             ->method('persist');
 
-        $em->expects($this->exactly(1))
+        $em->expects($this->once())
             ->method('flush');
 
         $componentManager = new ComponentManager($em, 'MTC');
