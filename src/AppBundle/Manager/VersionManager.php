@@ -31,6 +31,13 @@ class VersionManager
     }
 
     /**
+     * @return array
+     */
+    public function findAll(){
+        return $this->em->getRepository('AppBundle:Version')->findAll();
+    }
+
+    /**
      * @param $version
      * @param $item
      * @return mixed

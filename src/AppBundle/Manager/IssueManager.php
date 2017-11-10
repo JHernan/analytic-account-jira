@@ -16,18 +16,21 @@ class IssueManager
     private $em;
     private $issueTypeManager;
     private $componentManager;
+    private $versionManager;
 
     /**
      * IssueManager constructor.
      * @param EntityManager $em
      * @param IssueTypeManager $issueTypeManager
      * @param ComponentManager $componentManager
+     * @param VersionsManager $versionsManager
      */
-    public function __construct(EntityManager $em, IssueTypeManager $issueTypeManager, ComponentManager $componentManager)
+    public function __construct(EntityManager $em, IssueTypeManager $issueTypeManager, ComponentManager $componentManager, VersionManager $versionManager)
     {
         $this->em = $em;
         $this->issueTypeManager = $issueTypeManager;
         $this->componentManager = $componentManager;
+        $this->versionManager = $versionManager;
     }
 
     /**
@@ -50,6 +53,7 @@ class IssueManager
     private function setIssueData($issue, $item){
         $this->setIssueType($issue, $item);
         $this->setComponents($issue, $item);
+        $this->setVersions($issue, $item);
         $this->setSummary($issue, $item);
         $this->setTimespent($issue, $item);
         $this->setStatus($issue, $item);
@@ -96,6 +100,10 @@ class IssueManager
         }
     }
 
+    /**
+     * @param $issue
+     * @param $item
+     */
     private function setComponents($issue, $item){
         $components = $this->componentManager->findAll();
         $listComponents = [];
@@ -108,6 +116,24 @@ class IssueManager
         }
 
         $issue->setComponents($listComponents);
+    }
+
+    /**
+     * @param $issue
+     * @param $item
+     */
+    private function setVersions($issue, $item){
+        $versions = $this->versionManager->findAll();
+        $listVersions = [];
+        foreach($item->fields->fixVersions as $itemVersion){
+            foreach($versions as $version){
+                if($version->getJiraId() == $itemVersion->id){
+                    array_push($listVersions, $version);
+                }
+            }
+        }
+
+        $issue->setVersions($listVersions);
     }
 
     /**

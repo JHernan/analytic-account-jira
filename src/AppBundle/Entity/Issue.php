@@ -55,8 +55,15 @@ class Issue
      */
     private $components;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Version", inversedBy="issues")
+     * @ORM\JoinTable(name="issues_versions")
+     */
+    private $versions;
+
     public function __construct() {
         $this->components = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->versions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -179,6 +186,22 @@ class Issue
     public function setComponents($components)
     {
         $this->components = $components;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVersions()
+    {
+        return $this->versions;
+    }
+
+    /**
+     * @param mixed $versions
+     */
+    public function setVersions($versions)
+    {
+        $this->versions = $versions;
     }
 }
 

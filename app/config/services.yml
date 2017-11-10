@@ -72,6 +72,7 @@ services:
             $em: '@doctrine.orm.default_entity_manager'
             $issueTypeManager: '@AppBundle\Manager\IssueTypeManager'
             $componentManager: '@AppBundle\Manager\ComponentManager'
+            $versionManager: '@AppBundle\Manager\VersionManager'
 
     AppBundle\Manager\IssueTypeManager:
         public: true

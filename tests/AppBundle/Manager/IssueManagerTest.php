@@ -10,13 +10,16 @@ use PHPUnit\Framework\TestCase;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Manager\IssueManager;
 use AppBundle\Manager\IssueTypeManager;
+use AppBundle\Manager\ComponentManager;
+use AppBundle\Manager\VersionManager;
 
 class IssueManagerTest extends TestCase
 {
     public function testSaveIssue(){
         $em = $this->createMock(EntityManager::class);
         $issueTypeManager = $this->createMock(IssueTypeManager::class);
-        $componentManager = $this->createMock(\AppBundle\Manager\ComponentManager::class);
+        $componentManager = $this->createMock(ComponentManager::class);
+        $versionManager = $this->createMock(VersionManager::class);
 
         $em->expects($this->exactly(2))
             ->method('persist');
@@ -32,7 +35,11 @@ class IssueManagerTest extends TestCase
             ->method('findAll')
             ->willReturn([]);
 
-        $issueManager = new IssueManager($em, $issueTypeManager, $componentManager);
+        $versionManager->expects($this->exactly(2))
+            ->method('findAll')
+            ->willReturn([]);
+
+        $issueManager = new IssueManager($em, $issueTypeManager, $componentManager, $versionManager);
 
         $issues = array(
             'i1' => (object) array(
@@ -47,6 +54,10 @@ class IssueManagerTest extends TestCase
                     'components' => array(
                         'id' => '1',
                         'name' => 'Component'
+                    ),
+                    'fixVersions' => array(
+                        'id' => '1',
+                        'name' => 'Version'
                     )
                 )
             ),
@@ -61,6 +72,10 @@ class IssueManagerTest extends TestCase
                     'components' => array(
                         'id' => '2',
                         'name' => 'Component'
+                    ),
+                    'fixVersions' => array(
+                        'id' => '1',
+                        'name' => 'Version'
                     )
                 )
             )
