@@ -32,6 +32,6 @@ class LoadProjectCommand extends ContainerAwareCommand
     {
         $this->projectHandler->save();
 
-        $output->writeln('Project successfully loaded!');
+        $output->writeln('<info>Project successfully loaded!</info>');
     }
 }

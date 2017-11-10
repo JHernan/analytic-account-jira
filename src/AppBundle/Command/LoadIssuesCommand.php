@@ -32,6 +32,6 @@ class LoadIssuesCommand extends ContainerAwareCommand
     {
         $this->issueHandler->save();
 
-        $output->writeln('Issues successfully loaded!');
+        $output->writeln('<info>Issues successfully loaded!</info>');
     }
 }
