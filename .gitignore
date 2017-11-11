@@ -42,6 +42,7 @@
 
 # Vendors
 /vendor/
+/web/assets/
 
 # Dev
 .idea/
