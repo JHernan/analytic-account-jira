@@ -22,25 +22,19 @@ class IssueRepository extends \Doctrine\ORM\EntityRepository
         $query = $this->createQueryBuilder('i')
             ->getQuery();
 
-        $paginator = $this->paginate($query, $page, $limit);
+        $paginator = $this->createPaginator($query);
+        $paginator->getQuery()
+            ->setFirstResult($limit * ($page - 1))
+            ->setMaxResults($limit);
 
         return $paginator;
     }
 
     /**
      * @param $dql
-     * @param int $page
-     * @param int $limit
      * @return Paginator
      */
-    private function paginate($dql, $page = 1, $limit = 100)
-    {
-        $paginator = new Paginator($dql);
-
-        $paginator->getQuery()
-            ->setFirstResult($limit * ($page - 1))
-            ->setMaxResults($limit);
-
-        return $paginator;
+    private function createPaginator($dql){
+        return new Paginator($dql);
     }
 }
