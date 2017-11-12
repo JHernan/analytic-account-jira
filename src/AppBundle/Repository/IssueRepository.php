@@ -12,7 +12,12 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
  */
 class IssueRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAll($page = 1, $limit = 100)
+    /**
+     * @param int $page
+     * @param int $limit
+     * @return Paginator
+     */
+    public function findWithPagination($page, $limit)
     {
         $query = $this->createQueryBuilder('i')
             ->getQuery();
@@ -22,13 +27,19 @@ class IssueRepository extends \Doctrine\ORM\EntityRepository
         return $paginator;
     }
 
-    public function paginate($dql, $page = 1, $limit = 100)
+    /**
+     * @param $dql
+     * @param int $page
+     * @param int $limit
+     * @return Paginator
+     */
+    private function paginate($dql, $page = 1, $limit = 100)
     {
         $paginator = new Paginator($dql);
 
         $paginator->getQuery()
-            ->setFirstResult($limit * ($page - 1)) // Offset
-            ->setMaxResults($limit); // Limit
+            ->setFirstResult($limit * ($page - 1))
+            ->setMaxResults($limit);
 
         return $paginator;
     }

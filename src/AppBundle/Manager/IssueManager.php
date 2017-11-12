@@ -34,6 +34,27 @@ class IssueManager
     }
 
     /**
+     * @param $page
+     * @param $limit
+     * @return array
+     */
+    public function findWithPagination($page, $limit){
+        $issues = $this->em->getRepository(Issue::class)->findWithPagination($page, $limit);
+        $firstElement = $page * $limit - $limit + 1;
+        $lastElement = $firstElement + $limit - 1;
+
+        return [
+            'issues' => $issues,
+            'maxPages' => ceil($issues->count() / $limit),
+            'page' => $page,
+            'totalIssues' => $issues->count(),
+            'totalIssuesReturned' => $issues->getIterator()->count(),
+            'firstElement' => $firstElement,
+            'lastElement' => $lastElement
+        ];
+    }
+
+    /**
      * @param $issues
      */
     public function save($issues){
