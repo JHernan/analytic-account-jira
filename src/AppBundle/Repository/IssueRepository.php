@@ -11,11 +11,9 @@ namespace AppBundle\Repository;
 class IssueRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * @param $page
-     * @param $limit
      * @return \Doctrine\ORM\Query
      */
-    public function findWithPagination($page, $limit)
+    public function findAllWithPagination()
     {
         return $this->createQueryBuilder('i')
             ->getQuery();

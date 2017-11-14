@@ -60,8 +60,8 @@ class IssueHandler
      * @param $limit
      * @return array
      */
-    public function findWithPagination($page, $limit){
-        return $this->issueManager->findWithPagination($page, $limit);
+    public function findAllWithPagination($page, $limit){
+        return $this->issueManager->findAllWithPagination($page, $limit);
     }
 
     /**

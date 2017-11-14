@@ -14,7 +14,7 @@ class IssueController extends Controller
     public function listAction($page, $limit)
     {
         $issueHandler = $this->get(IssueHandler::class);
-        $listIssues = $issueHandler->findWithPagination($page, $limit);
+        $listIssues = $issueHandler->findAllWithPagination($page, $limit);
 
         return $this->render('issue/list.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,

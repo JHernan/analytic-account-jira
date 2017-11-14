@@ -41,8 +41,8 @@ class IssueManager
      * @param $limit
      * @return array
      */
-    public function findWithPagination($page, $limit){
-        $query = $this->em->getRepository(Issue::class)->findWithPagination($page, $limit);
+    public function findAllWithPagination($page, $limit){
+        $query = $this->em->getRepository(Issue::class)->findAllWithPagination();
 
         $issues = $this->paginator->getPaginator($query);
         $issues->getQuery()
