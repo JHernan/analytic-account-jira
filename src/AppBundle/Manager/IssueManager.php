@@ -9,6 +9,7 @@
 namespace AppBundle\Manager;
 
 use Doctrine\ORM\EntityManager;
+use AppBundle\Tools\Paginator;
 use AppBundle\Entity\Issue;
 
 class IssueManager
@@ -17,6 +18,7 @@ class IssueManager
     private $issueTypeManager;
     private $componentManager;
     private $versionManager;
+    private $paginator;
 
     /**
      * IssueManager constructor.
@@ -25,12 +27,13 @@ class IssueManager
      * @param ComponentManager $componentManager
      * @param VersionsManager $versionsManager
      */
-    public function __construct(EntityManager $em, IssueTypeManager $issueTypeManager, ComponentManager $componentManager, VersionManager $versionManager)
+    public function __construct(EntityManager $em, IssueTypeManager $issueTypeManager, ComponentManager $componentManager, VersionManager $versionManager, Paginator $paginator)
     {
         $this->em = $em;
         $this->issueTypeManager = $issueTypeManager;
         $this->componentManager = $componentManager;
         $this->versionManager = $versionManager;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -39,7 +42,13 @@ class IssueManager
      * @return array
      */
     public function findWithPagination($page, $limit){
-        $issues = $this->em->getRepository(Issue::class)->findWithPagination($page, $limit);
+        $query = $this->em->getRepository(Issue::class)->findWithPagination($page, $limit);
+
+        $issues = $this->paginator->getPaginator($query);
+        $issues->getQuery()
+            ->setFirstResult($limit * ($page - 1))
+            ->setMaxResults($limit);
+
         $firstElement = $page * $limit - $limit + 1;
         $lastElement = $firstElement + $limit - 1;
 
@@ -162,5 +171,15 @@ class IssueManager
      */
     private function createIssue(){
         return new Issue();
+    }
+
+
+
+    /**
+     * @param $dql
+     * @return Paginator
+     */
+    private function createPaginator($dql){
+        return new Paginator($dql);
     }
 }

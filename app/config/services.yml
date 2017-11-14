@@ -85,6 +85,9 @@ services:
         arguments:
             $issueHandler: '@AppBundle\Handler\IssueHandler'
 
+    AppBundle\Tools\Paginator:
+        public: true
+
 
     # Services JiraRestAPI
     JiraRestApi\Project\ProjectService:

@@ -20,6 +20,7 @@ class IssueManagerTest extends TestCase
         $issueTypeManager = $this->createMock(IssueTypeManager::class);
         $componentManager = $this->createMock(ComponentManager::class);
         $versionManager = $this->createMock(VersionManager::class);
+        $paginator = $this->createMock(\AppBundle\Tools\Paginator::class);
 
         $em->expects($this->exactly(2))
             ->method('persist');
@@ -39,7 +40,7 @@ class IssueManagerTest extends TestCase
             ->method('findAll')
             ->willReturn([]);
 
-        $issueManager = new IssueManager($em, $issueTypeManager, $componentManager, $versionManager);
+        $issueManager = new IssueManager($em, $issueTypeManager, $componentManager, $versionManager, $paginator);
 
         $issues = array(
             'i1' => (object) array(

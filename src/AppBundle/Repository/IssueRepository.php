@@ -2,8 +2,6 @@
 
 namespace AppBundle\Repository;
 
-use Doctrine\ORM\Tools\Pagination\Paginator;
-
 /**
  * IssueRepository
  *
@@ -13,28 +11,13 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class IssueRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-     * @param int $page
-     * @param int $limit
-     * @return Paginator
+     * @param $page
+     * @param $limit
+     * @return \Doctrine\ORM\Query
      */
     public function findWithPagination($page, $limit)
     {
-        $query = $this->createQueryBuilder('i')
+        return $this->createQueryBuilder('i')
             ->getQuery();
-
-        $paginator = $this->createPaginator($query);
-        $paginator->getQuery()
-            ->setFirstResult($limit * ($page - 1))
-            ->setMaxResults($limit);
-
-        return $paginator;
-    }
-
-    /**
-     * @param $dql
-     * @return Paginator
-     */
-    private function createPaginator($dql){
-        return new Paginator($dql);
     }
 }
