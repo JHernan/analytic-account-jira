@@ -33,11 +33,9 @@ class WorklogManager
     public function save(){
         $issues = $this->issueManager->findAll();
         foreach($issues as $issue){
-            // TODO
             $worklogs = $this->issueService->getWorklog($issue->getCode());
             foreach($worklogs->worklogs as $item){
                 $worklog = $this->createWorklog();
-                // TODO
                 $worklog = $this->setWorklogData($worklog, $item);
                 $this->em->persist($worklog);
             }
