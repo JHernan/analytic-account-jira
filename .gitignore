@@ -48,3 +48,4 @@
 .idea/
 .web-server-pid
 .env
+jira-rest-client.log

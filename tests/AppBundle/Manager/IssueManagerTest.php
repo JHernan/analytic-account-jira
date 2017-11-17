@@ -44,6 +44,7 @@ class IssueManagerTest extends TestCase
 
         $issues = array(
             'i1' => (object) array(
+                'key' => 'K1',
                 'fields' => (object) array(
                     'id' => '1',
                     'summary' => 'Summary1',
@@ -63,6 +64,7 @@ class IssueManagerTest extends TestCase
                 )
             ),
             'i2' => (object) array(
+                'key' => 'K2',
                 'fields' => (object) array(
                     'id' => '2',
                     'summary' => 'Symmary2',

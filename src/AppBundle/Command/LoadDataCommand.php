@@ -38,5 +38,10 @@ class LoadDataCommand extends ContainerAwareCommand
 
         $greetInput = new ArrayInput([]);
         $command->run($greetInput, $output);
+
+        $command = $this->getApplication()->find('app:load-worklogs');
+
+        $greetInput = new ArrayInput([]);
+        $command->run($greetInput, $output);
     }
 }

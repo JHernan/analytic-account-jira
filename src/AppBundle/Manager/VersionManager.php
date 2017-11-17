@@ -13,6 +13,12 @@ use AppBundle\Entity\Version;
 
 class VersionManager
 {
+    private $em;
+
+    /**
+     * VersionManager constructor.
+     * @param EntityManager $em
+     */
     public function __construct(EntityManager $em)
     {
         $this->em = $em;

@@ -36,7 +36,7 @@ class IssueHandler
         $ret = $this->issueService->search($jql, $startAt, $maxResult);
         $totalCount = $ret->total;
         $issues = $this->combine($issues, $ret);
-
+return $issues;
         $page = $totalCount / $maxResult;
 
         for ($currentPage = 1; $currentPage < $page; $currentPage++)

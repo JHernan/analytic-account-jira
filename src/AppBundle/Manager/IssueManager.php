@@ -64,6 +64,13 @@ class IssueManager
     }
 
     /**
+     * @return array
+     */
+    public function findAll(){
+        return $this->em->getRepository(Issue::class)->findAll();
+    }
+
+    /**
      * @param $issues
      */
     public function save($issues){
@@ -84,11 +91,20 @@ class IssueManager
         $this->setIssueType($issue, $item);
         $this->setComponents($issue, $item);
         $this->setVersions($issue, $item);
+        $this->setCode($issue, $item);
         $this->setSummary($issue, $item);
         $this->setTimespent($issue, $item);
         $this->setStatus($issue, $item);
 
         return $issue;
+    }
+
+    /**
+     * @param $issue
+     * @param $item
+     */
+    private function setCode($issue, $item){
+        $issue->setCode($item->key);
     }
 
     /**
