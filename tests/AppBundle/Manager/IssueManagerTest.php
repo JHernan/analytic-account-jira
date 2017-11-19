@@ -71,7 +71,8 @@ class IssueManagerTest extends TestCase
                     'fixVersions' => array(
                         'id' => '1',
                         'name' => 'Version'
-                    )
+                    ),
+                    'parent' => null
                 )
             ),
             'i2' => (object) array(
@@ -90,7 +91,8 @@ class IssueManagerTest extends TestCase
                     'fixVersions' => array(
                         'id' => '1',
                         'name' => 'Version'
-                    )
+                    ),
+                    'parent' => null
                 )
             )
         );

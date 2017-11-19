@@ -14,6 +14,9 @@ use JiraRestApi\Issue\IssueService;
 
 class IssueHandler
 {
+    const JQL_ISSUES = 'project = MTC AND issuetype in (Bug, Story, Task) ORDER BY key ASC';
+    const JQL_SUBTASKS = 'project = MTC AND issuetype = Sub-task order by key ASC';
+
     private $issueManager;
     private $issueService;
 
@@ -26,17 +29,14 @@ class IssueHandler
     /**
      * @return array
      */
-    public function getIssues(){
-        $issues = [];
-        $jql = 'project = MTC order by key ASC';
-
-        $startAt = 0;	    //the index of the first issue to return (0-based)
-        $maxResult = 100;	// the maximum number of issues to return (defaults to 50).
+    public function getIssues($jql){
+        $startAt = 0;
+        $maxResult = 100;
 
         $ret = $this->issueService->search($jql, $startAt, $maxResult);
         $totalCount = $ret->total;
-        $issues = $this->combine($issues, $ret);
-return $issues;
+        $issues = $this->combine([], $ret);
+//return $issues;
         $page = $totalCount / $maxResult;
 
         for ($currentPage = 1; $currentPage < $page; $currentPage++)
@@ -50,8 +50,13 @@ return $issues;
         return $issues;
     }
 
-    public function save(){
-        $issues = $this->getIssues();
+    public function saveIssues(){
+        $issues = $this->getIssues(self::JQL_ISSUES);
+        $this->issueManager->save($issues);
+    }
+
+    public function saveSubTasks(){
+        $issues = $this->getIssues(self::JQL_SUBTASKS);
         $this->issueManager->save($issues);
     }
 

@@ -30,8 +30,10 @@ class LoadIssuesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->issueHandler->save();
-
+        $this->issueHandler->saveIssues();
         $output->writeln('<info>Issues successfully loaded!</info>');
+
+        $this->issueHandler->saveSubTasks();
+        $output->writeln('<info>SubTasks successfully loaded!</info>');
     }
 }

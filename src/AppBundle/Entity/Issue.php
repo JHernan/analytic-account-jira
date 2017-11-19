@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Issue
@@ -68,9 +69,22 @@ class Issue
      */
     private $versions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Issue", mappedBy="parent")
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Issue", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+
+
     public function __construct() {
-        $this->components = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->versions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->components = new ArrayCollection();
+        $this->versions = new ArrayCollection();
+        $this->children = new ArrayCollection();
     }
 
     /**
@@ -225,6 +239,38 @@ class Issue
     public function setVersions($versions)
     {
         $this->versions = $versions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * @param mixed $parent
+     */
+    public function setParent($parent)
+    {
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * @param mixed $children
+     */
+    public function setChildren($children)
+    {
+        $this->children = $children;
     }
 }
 

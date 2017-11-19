@@ -22,7 +22,10 @@ class LoadIssuesCommandTest extends KernelTestCase
         $issueHandler = $this->createMock(IssueHandler::class);
 
         $issueHandler->expects($this->once())
-            ->method('save');
+            ->method('saveIssues');
+
+        $issueHandler->expects($this->once())
+            ->method('saveSubTasks');
 
         $application->add(new LoadIssuesCommand($issueHandler));
 

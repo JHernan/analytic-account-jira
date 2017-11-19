@@ -71,6 +71,14 @@ class IssueManager
     }
 
     /**
+     * @param $code
+     * @return null|object
+     */
+    public function findOneByCode($code){
+        return $this->em->getRepository(Issue::class)->findOneBy(['code' => $code]);
+    }
+
+    /**
      * @param $issues
      */
     public function save($issues){
@@ -88,6 +96,7 @@ class IssueManager
      * @return mixed
      */
     private function setIssueData($issue, $item){
+        $this->setParent($issue, $item);
         $this->setIssueType($issue, $item);
         $this->setComponents($issue, $item);
         $this->setVersions($issue, $item);
@@ -97,6 +106,17 @@ class IssueManager
         $this->setStatus($issue, $item);
 
         return $issue;
+    }
+
+    /**
+     * @param $issue
+     * @param $item
+     */
+    private function setParent($issue, $item){
+        if(!is_null($item->fields->parent)){
+            $parent = $this->findOneByCode($item->fields->parent->key);
+            $issue->setParent($parent);
+        }
     }
 
     /**
