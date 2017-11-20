@@ -6,6 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Handler\IssueHandler;
 
+/**
+ * @Route("/issues")
+ */
 class IssueController extends Controller
 {
     /**

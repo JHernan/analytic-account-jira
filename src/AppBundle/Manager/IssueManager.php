@@ -79,6 +79,14 @@ class IssueManager
     }
 
     /**
+     * @param $jiraId
+     * @return null|object
+     */
+    public function findOneByJiraId($jiraId){
+        return $this->em->getRepository(Issue::class)->findOneBy(['jiraId' => $jiraId]);
+    }
+
+    /**
      * @param $issues
      */
     public function save($issues){
@@ -96,6 +104,7 @@ class IssueManager
      * @return mixed
      */
     private function setIssueData($issue, $item){
+        $this->setJiraId($issue, $item);
         $this->setParent($issue, $item);
         $this->setIssueType($issue, $item);
         $this->setComponents($issue, $item);
@@ -117,6 +126,14 @@ class IssueManager
             $parent = $this->findOneByCode($item->fields->parent->key);
             $issue->setParent($parent);
         }
+    }
+
+    /**
+     * @param $issue
+     * @param $item
+     */
+    private function setJiraId($issue, $item){
+        $issue->setJiraId($item->id);
     }
 
     /**

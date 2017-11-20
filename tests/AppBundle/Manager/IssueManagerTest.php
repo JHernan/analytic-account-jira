@@ -55,6 +55,7 @@ class IssueManagerTest extends TestCase
 
         $issues = array(
             'i1' => (object) array(
+                'id' => '1',
                 'key' => 'K1',
                 'fields' => (object) array(
                     'id' => '1',
@@ -76,6 +77,7 @@ class IssueManagerTest extends TestCase
                 )
             ),
             'i2' => (object) array(
+                'id' => '2',
                 'key' => 'K2',
                 'fields' => (object) array(
                     'id' => '2',
@@ -99,7 +101,7 @@ class IssueManagerTest extends TestCase
 
         $issueManager->save($issues);
     }
-    
+
     public function testFindAll(){
         $repository = $this->getMockBuilder('AppBundle\Repository\IssueRepository')
             ->disableOriginalConstructor()
@@ -116,5 +118,43 @@ class IssueManagerTest extends TestCase
         $issueManager = new IssueManager($this->em, $this->issueTypeManager, $this->componentManager, $this->versionManager, $this->paginator);
 
         $issueManager->findAll();
+    }
+
+    public function testFindOneByCode(){
+        $repository = $this->getMockBuilder('AppBundle\Repository\IssueRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $repository->expects($this->once())
+            ->method('findOneBy')
+            ->with(['code' => '1']);
+
+        $this->em->expects($this->once())
+            ->method('getRepository')
+            ->with('AppBundle\Entity\Issue')
+            ->willReturn($repository);
+
+        $issueManager = new IssueManager($this->em, $this->issueTypeManager, $this->componentManager, $this->versionManager, $this->paginator);
+
+        $issueManager->findOneByCode('1');
+    }
+
+    public function testFindOneByJiraId(){
+        $repository = $this->getMockBuilder('AppBundle\Repository\IssueRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $repository->expects($this->once())
+            ->method('findOneBy')
+            ->with(['jiraId' => '1']);
+
+        $this->em->expects($this->once())
+            ->method('getRepository')
+            ->with('AppBundle\Entity\Issue')
+            ->willReturn($repository);
+
+        $issueManager = new IssueManager($this->em, $this->issueTypeManager, $this->componentManager, $this->versionManager, $this->paginator);
+
+        $issueManager->findOneByJiraId('1');
     }
 }

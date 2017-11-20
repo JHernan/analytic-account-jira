@@ -49,6 +49,13 @@ class Worklog
      */
     private $timeSpent;
 
+    /**
+     *
+     * @ORM\ManyToOne(targetEntity="Issue", inversedBy="worklogs")
+     * @ORM\JoinColumn(name="issue_id", referencedColumnName="id")
+     */
+    private $issue;
+
 
     /**
      * Get id
@@ -154,6 +161,22 @@ class Worklog
     public function getTimeSpent()
     {
         return $this->timeSpent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIssue()
+    {
+        return $this->issue;
+    }
+
+    /**
+     * @param mixed $issue
+     */
+    public function setIssue($issue)
+    {
+        $this->issue = $issue;
     }
 }
 

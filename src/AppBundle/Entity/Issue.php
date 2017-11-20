@@ -23,6 +23,13 @@ class Issue
     private $id;
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="jiraId", type="integer")
+     */
+    private $jiraId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=255)
@@ -70,6 +77,11 @@ class Issue
     private $versions;
 
     /**
+     * @ORM\OneToMany(targetEntity="Worklog", mappedBy="issue")
+     */
+    private $worklogs;
+
+    /**
      * @ORM\OneToMany(targetEntity="Issue", mappedBy="parent")
      */
     private $children;
@@ -95,6 +107,22 @@ class Issue
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getJiraId(): int
+    {
+        return $this->jiraId;
+    }
+
+    /**
+     * @param int $jiraId
+     */
+    public function setJiraId(int $jiraId)
+    {
+        $this->jiraId = $jiraId;
     }
 
     /**
@@ -239,6 +267,22 @@ class Issue
     public function setVersions($versions)
     {
         $this->versions = $versions;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWorklogs()
+    {
+        return $this->worklogs;
+    }
+
+    /**
+     * @param mixed $worklogs
+     */
+    public function setWorklogs($worklogs)
+    {
+        $this->worklogs = $worklogs;
     }
 
     /**

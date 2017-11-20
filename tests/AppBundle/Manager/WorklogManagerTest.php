@@ -23,7 +23,7 @@ class WorklogManagerTest extends TestCase
         $em->expects($this->exactly(4))
             ->method('persist');
 
-        $em->expects($this->once())
+        $em->expects($this->exactly(2))
             ->method('flush');
 
         $issue1 = new Issue();
@@ -41,8 +41,8 @@ class WorklogManagerTest extends TestCase
 
         $worklogs = (object) array(
             'worklogs' => (object) array(
-                'w1' => (object) array('id' => '1', 'author' => (object) array('key' => 'employee1'), 'created' => '2017-01-01 00:00:00', 'timeSpentSeconds' => '3600'),
-                'w2' => (object) array('id' => '2', 'author' => (object) array('key' => 'employee2'), 'created' => '2017-01-01 00:00:00', 'timeSpentSeconds' => '3600')
+                'w1' => (object) array('id' => '1', 'author' => (object) array('key' => 'employee1'), 'created' => '2017-01-01 00:00:00', 'timeSpentSeconds' => '3600', 'issueId' => '1'),
+                'w2' => (object) array('id' => '2', 'author' => (object) array('key' => 'employee2'), 'created' => '2017-01-01 00:00:00', 'timeSpentSeconds' => '3600', 'issueId' => '2')
             )
         );
 

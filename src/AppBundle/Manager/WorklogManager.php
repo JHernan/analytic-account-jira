@@ -39,8 +39,8 @@ class WorklogManager
                 $worklog = $this->setWorklogData($worklog, $item);
                 $this->em->persist($worklog);
             }
+            $this->em->flush();
         }
-        $this->em->flush();
     }
 
     /**
@@ -49,12 +49,59 @@ class WorklogManager
      * @return mixed
      */
     private function setWorklogData($worklog, $item){
-        $worklog->setJiraId($item->id);
-        $worklog->setEmployee($item->author->key);
-        $worklog->setDate(new \DateTime($item->created));
-        $worklog->setTimespent($item->timeSpentSeconds);
+        $this->setJiraId($worklog, $item);
+        $this->setIssue($worklog, $item);
+        $this->setEmployee($worklog, $item);
+        $this->setDate($worklog, $item);
+        $this->setTimespent($worklog, $item);
 
         return $worklog;
+    }
+
+    /**
+     * @param $worklog
+     * @param $item
+     */
+    private function setJiraId($worklog, $item){
+        $worklog->setJiraId($item->id);
+    }
+
+    /**
+     * @param $worklog
+     * @param $item
+     */
+    private function setIssue($worklog, $item){
+        if(!is_null($item->issueId)){
+            $issue = $this->issueManager->findOneByJiraId($item->issueId);
+            $worklog->setIssue($issue);
+        }
+    }
+
+    /**
+     * @param $worklog
+     * @param $item
+     */
+    private function setEmployee($worklog, $item)
+    {
+        $worklog->setEmployee($item->author->key);
+    }
+
+    /**
+     * @param $worklog
+     * @param $item
+     */
+    private function setDate($worklog, $item)
+    {
+        $worklog->setDate(new \DateTime($item->created));
+    }
+
+    /**
+     * @param $worklog
+     * @param $item
+     */
+    private function setTimespent($worklog, $item)
+    {
+        $worklog->setTimespent($item->timeSpentSeconds);
     }
 
     /**

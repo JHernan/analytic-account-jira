@@ -37,5 +37,6 @@ class LoadIssuesCommandTest extends KernelTestCase
 
         $output = $commandTester->getDisplay();
         $this->assertContains('Issues successfully loaded!', $output);
+        $this->assertContains('SubTasks successfully loaded!', $output);
     }
 }
