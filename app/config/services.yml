@@ -50,6 +50,11 @@ services:
             $issueManager: '@AppBundle\Manager\IssueManager'
             $issueService: '@JiraRestApi\Issue\IssueService'
 
+    AppBundle\Handler\AccountHandler:
+        public: true
+        arguments:
+            $versionManager: '@AppBundle\Manager\VersionManager'
+
 
     AppBundle\Manager\ProjectManager:
         public: true

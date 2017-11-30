@@ -52,25 +52,17 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Summary</th>
-                                    <th>Type</th>
+                                    <th>Account</th>
                                     <th>Timespent</th>
-                                    <th>Status</th>
-                                    <th>Components</th>
-                                    <th>Versions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {% for issue in issues %}
-                                <tr>
-                                    <th scope="row">{{ issue.id }}</th>
-                                    <td>{{ issue.summary }}</td>
-                                    <td>{{ issue.type }}</td>
-                                    <td>{{ issue.timespent }}</td>
-                                    <td>{{ issue.status }}</td>
-                                    <td>{% for component in issue.components %} {{ component.name }} {% endfor %}</td>
-                                    <td>{% for version in issue.versions %} {{ version.name }} {% endfor %}</td>
-                                </tr>
+                                {% for key, account in accounts %}
+                                    <tr>
+                                        <th scope="row">{{ key }}</th>
+                                        <td>{{ account.name }}</td>
+                                        <td>{{ account.timespent }}</td>
+                                    </tr>
                                 {% endfor %}
                                 </tbody>
                             </table>
@@ -78,24 +70,8 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-5">
-                                <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite">Showing {{ firstElement }} to {{ lastElement }} of {{ totalIssues }} issues</div></div><div class="col-sm-7">
-                                <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-                                    {%  if maxPages > 1 %}
-                                    <ul class="pagination">
-                                        <li class="paginate_button previous disabled" id="datatable_previous" {{ page == 1 ? 'class="disabled"' }}>
-                                            <a href="{{ path('issues', {page: page-1 < 1 ? 1 : page-1}) }}" aria-controls="datatable" data-dt-idx="0" tabindex="0">Previous</a>
-                                        </li>
-                                        {% for i in 1..maxPages %}
-                                        <li class="paginate_button {{ page == i ? 'class="active' }}">
-                                            <a href="{{ path('issues', {page: i}) }}" aria-controls="datatable" data-dt-idx="1" tabindex="0">{{ i }}</a>
-                                        </li>
-                                        {% endfor %}
-                                        <li class="paginate_button next" id="datatable_next" {{ page == maxPages ? 'class="disabled"' }}>
-                                            <a href="{{ path('issues', {page: page+1 <= maxPages ? page+1 : page}) }}" aria-controls="datatable" data-dt-idx="7" tabindex="0">Next</a>
-                                        </li>
-                                    </ul>
-                                    {% endif %}
-                                </div>
+                                <div class="dataTables_info" id="datatable_info" role="status" aria-live="polite"></div></div><div class="col-sm-7">
+                                <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate"></div>
                             </div>
                         </div>
                     </div>
@@ -104,4 +80,5 @@
         </div>
     </div>
     <!-- /page content -->
+
 {% endblock %}

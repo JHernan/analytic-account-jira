@@ -44,6 +44,13 @@ class VersionManager
     }
 
     /**
+     * @return mixed
+     */
+    public function getTimespentByVersion(){
+        return $this->em->getRepository('AppBundle:Version')->getTimespentByVersion();
+    }
+
+    /**
      * @param $version
      * @param $item
      * @return mixed

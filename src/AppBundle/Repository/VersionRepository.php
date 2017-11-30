@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class VersionRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return array
+     */
+    public function getTimespentByVersion(){
+        $qb = $this->createQueryBuilder('v');
+        $qb->select('v.name', 'sum(w.timeSpent / 3600) as timespent');
+        $qb->leftJoin('v.issues', 'i');
+        $qb->leftJoin('i.worklogs', 'w');
+        $qb->groupBy('v.name');
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }
