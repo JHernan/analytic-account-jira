@@ -1,0 +1,8 @@
+mtc:
+  jiraId: 1
+  name: Mejora Tu Ciudad
+  short: mtc
+quiron:
+  jiraId: 2
+  name: Quirón Salud
+  short: quiron

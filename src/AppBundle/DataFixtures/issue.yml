@@ -1,0 +1,97 @@
+- component: Backoffice
+  version: Flujos Dinámicos
+  issue_type: Historia
+- component: Backoffice
+  version: Flujos Dinámicos
+  issue_type: Historia
+- component: Backoffice
+  version: Flujos Dinámicos
+  issue_type: Historia
+- component: CityAPP Android
+  version: Flujos Dinámicos
+  issue_type: Historia
+- component: CityAPP Android
+  version: Flujos Dinámicos
+  issue_type: Tarea
+- component: Backoffice
+  version: Flujos Dinámicos
+  issue_type: Tarea
+- component: Backoffice
+  version: Flujos Dinámicos
+  issue_type: Historia
+- component: Backoffice
+  version: Flujos Dinámicos
+  issue_type: Historia
+
+- component: CityAPP Android
+  version: Zonas
+  issue_type: Historia
+- component: CityAPP Android
+  version: Zonas
+  issue_type: Historia
+- component: CityAPP iOS
+  version: Zonas
+  issue_type: Historia
+- component: CityAPP iOS
+  version: Zonas
+  issue_type: Historia
+- component: Backoffice
+  version: Zonas
+- component: CityAPP Android
+  version: Zonas
+  issue_type: Historia
+- component: WorkAPP
+  version: Zonas
+  issue_type: Historia
+- component: WorkAPP
+  version: Zonas
+  issue_type: Tarea
+- component: CityAPP Android
+  version: Zonas
+  issue_type: Historia
+- component: CityAPP Android
+  version: Zonas
+  issue_type: Historia
+- component: CityAPP Android
+  version: Zonas
+  issue_type: Tarea
+
+- component: CityAPP Android
+  version: MTC+ SRGSA
+  issue_type: Historia
+- component: CityAPP Android
+  version: MTC+ SRGSA
+  issue_type: Historia
+- component: CityAPP iOS
+  version: MTC+ SRGSA
+  issue_type: Historia
+- component: CityAPP iOS
+  version: MTC+ SRGSA
+  issue_type: Historia
+- component: Backoffice
+  version: MTC+ SRGSA
+- component: CityAPP Android
+  version: MTC+ SRGSA
+  issue_type: Historia
+- component: WorkAPP
+  version: MTC+ SRGSA
+  issue_type: Historia
+- component: WorkAPP
+  version: MTC+ SRGSA
+  issue_type: Tarea
+- component: Backoffice
+  version: MTC+ SRGSA
+  issue_type: Historia
+- component: Backoffice
+  version: MTC+ SRGSA
+  issue_type: Historia
+- component: CityAPP Android
+  version: MTC+ SRGSA
+  issue_type: Tarea
+
+- component: Backoffice
+  version: Nuevo Backoffice
+  issue_type: Historia
+- component: Backoffice
+  version: Nuevo Backoffice
+  issue_type: Tarea

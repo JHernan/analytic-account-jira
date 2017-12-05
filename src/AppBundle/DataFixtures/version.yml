@@ -1,0 +1,12 @@
+flujos_dinamicos:
+  jiraId: 1
+  name: Flujos Dinámicos
+zonas:
+  jiraId: 2
+  name: Zonas
+mtc+_srgsa:
+  jiraId: 3
+  name: MTC+ SRGSA
+nuevo_backoffice:
+  jiraId: 4
+  name: Nuevo Backoffice

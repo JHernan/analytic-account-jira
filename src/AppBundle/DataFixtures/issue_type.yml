@@ -1,0 +1,15 @@
+history:
+  jiraId: 1
+  name: Historia
+task:
+  jiraId: 2
+  name: Tarea
+error:
+  jiraId: 3
+  name: Error
+epic:
+  jiraId: 4
+  name: Épica
+sub_task:
+  jiraId: 5
+  name: Sub-Tarea

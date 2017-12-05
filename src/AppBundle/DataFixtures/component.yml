@@ -1,0 +1,12 @@
+backoffice:
+  jiraId: 1
+  name: Backoffice
+cityapp_android:
+  jiraId: 2
+  name: CityAPP Android
+cityapp_ios:
+  jiraId: 3
+  name: CityAPP iOS
+workapp:
+  jiraId: 4
+  name: WorkAPP
