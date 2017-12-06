@@ -17,6 +17,8 @@ use AppBundle\Entity\IssueType;
 use AppBundle\Entity\Version;
 use AppBundle\Entity\Component;
 use AppBundle\Entity\Project;
+use AppBundle\Entity\Employee;
+use AppBundle\Entity\Salary;
 
 class Fixtures extends Fixture
 {
@@ -30,6 +32,8 @@ class Fixtures extends Fixture
         $this->loadComponents();
         $this->loadVersions();
         $this->loadIssueType();
+        $this->loadEmployees();
+        $this->loadSalaries();
         $this->loadIssues();
         $this->loadWorklogs();
     }
@@ -87,6 +91,40 @@ class Fixtures extends Fixture
         $this->manager->flush();
     }
 
+    private function loadEmployees(){
+        $items = Yaml::parse(file_get_contents(__DIR__. '/employee.yml'));
+
+        foreach($items as $item){
+            $employee = new Employee();
+            $employee->setName($item['name']);
+            $employee->setUsername($item['username']);
+            $this->manager->persist($employee);
+        }
+
+        $this->manager->flush();
+    }
+
+    private function loadSalaries(){
+        $items = Yaml::parse(file_get_contents(__DIR__. '/salary.yml'));
+        $months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        foreach($months as $month){
+            foreach($items as $item){
+                $employee = $this->manager->getRepository('AppBundle:Employee')->findOneBy(['name' => $item['employee']]);
+
+                $salary = new Salary();
+                $salary->setYear('2017');
+                $salary->setMonth($month);
+                $salary->setAmount($item['amount']);
+                $salary->setEmployee($employee);
+
+                $this->manager->persist($salary);
+            }
+        }
+
+        $this->manager->flush();
+    }
+
     private function loadIssues(){
         $items = Yaml::parse(file_get_contents(__DIR__. '/issue.yml'));
         $i=0;
@@ -118,10 +156,12 @@ class Fixtures extends Fixture
             $i=0;
             foreach($items as $item){
                 $i++;
+                $employee = $this->manager->getRepository('AppBundle:Employee')->findOneBy(['name' => $item['employee']]);
+
                 $worklog = new Worklog();
                 $worklog->setJiraId($i);
                 $worklog->setDate(new \DateTime());
-                $worklog->setEmployee($item['employee']);
+                $worklog->setEmployee($employee);
                 $worklog->setTimeSpent($issue->getJiraId() * 3600 * $i);
                 $worklog->setIssue($issue);
 

@@ -29,9 +29,9 @@ class Worklog
     private $jiraId;
 
     /**
-     * @var string
      *
-     * @ORM\Column(name="employee", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Employee", inversedBy="worklogs")
+     * @ORM\JoinColumn(name="employee_id", referencedColumnName="id")
      */
     private $employee;
 
@@ -94,7 +94,7 @@ class Worklog
     /**
      * Set employee
      *
-     * @param string $employee
+     * @param mixed $employee
      *
      * @return Worklog
      */
@@ -108,7 +108,7 @@ class Worklog
     /**
      * Get employee
      *
-     * @return string
+     * @return mixed
      */
     public function getEmployee()
     {

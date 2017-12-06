@@ -97,6 +97,7 @@ class Issue
         $this->components = new ArrayCollection();
         $this->versions = new ArrayCollection();
         $this->children = new ArrayCollection();
+        $this->worklogs = new ArrayCollection();
     }
 
     /**
