@@ -29,18 +29,25 @@ class Salary
     private $amount;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="month", type="string", length=255)
+     * @ORM\Column(name="month", type="integer")
      */
     private $month;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="year", type="string", length=255)
+     * @ORM\Column(name="year", type="integer")
      */
     private $year;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="hours", type="integer")
+     */
+    private $hours;
 
     /**
      *
@@ -57,7 +64,7 @@ class Salary
      */
     public function getId()
     {
-        return $this->id;
+        return $this->id;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
     }
 
     /**
@@ -73,7 +80,7 @@ class Salary
 
         return $this;
     }
-
+                                                                                                                                                                                                        
     /**
      * Get amount
      *
@@ -133,6 +140,22 @@ class Salary
     }
 
     /**
+     * @return int
+     */
+    public function getHours(): int
+    {
+        return $this->hours;
+    }
+
+    /**
+     * @param int $hours
+     */
+    public function setHours(int $hours)
+    {
+        $this->hours = $hours;
+    }
+
+    /**
      * @return mixed
      */
     public function getEmployee()
@@ -146,6 +169,47 @@ class Salary
     public function setEmployee($employee)
     {
         $this->employee = $employee;
+    }
+
+    /**
+     * @return float
+     */
+    public function getCostPerHour(){
+        $date = new \DateTime($this->getYear() . '-' . $this->getMonth() . '-01');
+        $firstDay = $date->modify('first day of this month')->format('Y-m-d');
+        $lastDay = $date->modify('last day of this month')->format('Y-m-d');
+
+        $workingDays = $this->getWorkingDays($firstDay, $lastDay);
+
+        return ($this->getAmount() / $workingDays) / ($this->getHours() / $workingDays);
+    }
+
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @return int
+     */
+    private function getWorkingDays($startDate, $endDate)
+    {
+        $begin = strtotime($startDate);
+        $end = strtotime($endDate);
+        if ($begin > $end) {
+            return 0;
+        } else {
+            $no_days = 0;
+            $weekends = 0;
+            while ($begin <= $end) {
+                $no_days++; // no of days in the given interval
+                $what_day = date("N", $begin);
+                if ($what_day > 5) { // 6 and 7 are weekend days
+                    $weekends++;
+                };
+                $begin += 86400; // +1 day
+            };
+            $working_days = $no_days - $weekends;
+
+            return $working_days;
+        }
     }
 }
 
