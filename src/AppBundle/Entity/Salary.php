@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="salary")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SalaryRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Salary
 {
@@ -48,6 +49,13 @@ class Salary
      * @ORM\Column(name="hours", type="integer")
      */
     private $hours;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cost_per_hour", type="float")
+     */
+    private $costPerHour;
 
     /**
      *
@@ -175,13 +183,21 @@ class Salary
      * @return float
      */
     public function getCostPerHour(){
+        return $this->costPerHour;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @return float
+     */
+    public function setCostPerHour(){
         $date = new \DateTime($this->getYear() . '-' . $this->getMonth() . '-01');
         $firstDay = $date->modify('first day of this month')->format('Y-m-d');
         $lastDay = $date->modify('last day of this month')->format('Y-m-d');
 
         $workingDays = $this->getWorkingDays($firstDay, $lastDay);
 
-        return ($this->getAmount() / $workingDays) / ($this->getHours() / $workingDays);
+        $this->costPerHour = ($this->getAmount() / $workingDays) / ($this->getHours() / $workingDays);
     }
 
     /**

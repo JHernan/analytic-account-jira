@@ -136,14 +136,17 @@ class Fixtures extends Fixture
             $i++;
             $version = $this->manager->getRepository('AppBundle:Version')->findOneBy(['name' => $item['version']]);
             $component = $this->manager->getRepository('AppBundle:Component')->findOneBy(['name' => $item['component']]);
+            $issueType = $this->manager->getRepository('AppBundle:IssueType')->findOneBy(['name' => $item['issue_type']]);
+
             $issue = new Issue();
             $issue->setJiraId($i);
             $issue->setCode('MTC-' . $i);
             $issue->setSummary('Issue '. $i);
-            $issue->setTimespent($i * 3600 * 10);
+            $issue->setTimespent($i * 10);
             $issue->setStatus('Open');
             $issue->setVersions([$version]);
             $issue->setComponents([$component]);
+            $issue->setType($issueType);
 
             $this->manager->persist($issue);
         }
@@ -165,7 +168,7 @@ class Fixtures extends Fixture
                 $worklog->setJiraId($i);
                 $worklog->setDate(new \DateTime());
                 $worklog->setEmployee($employee);
-                $worklog->setTimeSpent($issue->getJiraId() * 3600 * $i);
+                $worklog->setTimeSpent($issue->getJiraId() * $i);
                 $worklog->setIssue($issue);
 
                 $this->manager->persist($worklog);

@@ -39,7 +39,7 @@ class VersionRepositoryTest extends TestCase
 
         $this->queryBuilder->expects($this->once())
             ->method('select')
-            ->with('v.name', 'sum(w.timeSpent / 3600) as timespent')
+            ->with('v.name', 'sum(w.timeSpent * s.costPerHour) as cost')
             ->willReturn($this->returnValue($this->queryBuilder));
 
         $this->queryBuilder->expects($this->at(1))
@@ -50,6 +50,26 @@ class VersionRepositoryTest extends TestCase
         $this->queryBuilder->expects($this->at(2))
             ->method('leftJoin')
             ->with('i.worklogs', 'w')
+            ->willReturn($this->returnValue($this->queryBuilder));
+
+        $this->queryBuilder->expects($this->at(3))
+            ->method('leftJoin')
+            ->with('w.employee', 'e')
+            ->willReturn($this->returnValue($this->queryBuilder));
+
+        $this->queryBuilder->expects($this->at(4))
+            ->method('leftJoin')
+            ->with('e.salaries', 's')
+            ->willReturn($this->returnValue($this->queryBuilder));
+
+        $this->queryBuilder->expects($this->once())
+            ->method('where')
+            ->with('MONTH(w.date) = s.month')
+            ->willReturn($this->returnValue($this->queryBuilder));
+
+        $this->queryBuilder->expects($this->once())
+            ->method('andWhere')
+            ->with('YEAR(w.date) = s.year')
             ->willReturn($this->returnValue($this->queryBuilder));
 
         $this->queryBuilder->expects($this->once())

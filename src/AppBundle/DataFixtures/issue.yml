@@ -37,6 +37,7 @@
   issue_type: Historia
 - component: Backoffice
   version: Zonas
+  issue_type: Historia
 - component: CityAPP Android
   version: Zonas
   issue_type: Historia
@@ -70,6 +71,7 @@
   issue_type: Historia
 - component: Backoffice
   version: MTC+ SRGSA
+  issue_type: Historia
 - component: CityAPP Android
   version: MTC+ SRGSA
   issue_type: Historia

@@ -17,6 +17,7 @@ class WorklogManager
     private $em;
     private $issueManager;
     private $issueService;
+    const SECONDS_PER_HOUR = 3600;
 
     /**
      * WorklogManager constructor.
@@ -101,7 +102,7 @@ class WorklogManager
      */
     private function setTimespent($worklog, $item)
     {
-        $worklog->setTimespent($item->timeSpentSeconds);
+        $worklog->setTimespent($item->timeSpentSeconds / self::SECONDS_PER_HOUR);
     }
 
     /**
