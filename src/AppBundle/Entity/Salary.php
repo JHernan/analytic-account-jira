@@ -150,7 +150,7 @@ class Salary
     /**
      * @return int
      */
-    public function getHours(): int
+    public function getHours()
     {
         return $this->hours;
     }
@@ -187,7 +187,7 @@ class Salary
     }
 
     /**
-     * @ORM\PrePersist
+     * @ORM\PreFlush
      * @return float
      */
     public function setCostPerHour(){
@@ -198,6 +198,13 @@ class Salary
         $workingDays = $this->getWorkingDays($firstDay, $lastDay);
 
         $this->costPerHour = ($this->getAmount() / $workingDays) / ($this->getHours() / $workingDays);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(){
+        return $this->employee->getName() . ' - ' . $this->getMonth() . '/' . $this->getYear();
     }
 
     /**

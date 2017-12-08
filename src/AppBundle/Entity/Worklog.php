@@ -178,5 +178,12 @@ class Worklog
     {
         $this->issue = $issue;
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(){
+        return $this->issue->getCode() .' - ' . $this->timeSpent;
+    }
 }
 
