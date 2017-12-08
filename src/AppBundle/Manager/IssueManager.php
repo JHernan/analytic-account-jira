@@ -87,6 +87,14 @@ class IssueManager
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function getCostDetailOfVersion($id){
+        return $this->em->getRepository(Issue::class)->getCostDetailOfVersion($id);
+    }
+
+    /**
      * @param $issues
      */
     public function save($issues){

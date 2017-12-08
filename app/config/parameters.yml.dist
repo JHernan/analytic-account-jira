@@ -19,3 +19,4 @@ parameters:
     secret: ThisTokenIsNotSoSecretChangeIt
 
     project_key: key
+    jiraUrl: url

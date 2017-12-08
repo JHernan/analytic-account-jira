@@ -61,15 +61,30 @@ class VersionManagerTest extends TestCase
         $this->versionManager->findAll();
     }
 
-    public function testGetTimespentByVersion(){
+    public function testFindOneById(){
+        $id = 1;
+
         $this->repository->expects($this->once())
-            ->method('getTimespentByVersion');
+            ->method('findOneBy')
+            ->with(['id' => $id]);
 
         $this->em->expects($this->once())
             ->method('getRepository')
             ->with('AppBundle:Version')
             ->willReturn($this->repository);
 
-        $this->versionManager->getTimespentByVersion();
+        $this->versionManager->findOneById($id);
+    }
+
+    public function testGetCostByVersion(){
+        $this->repository->expects($this->once())
+            ->method('getCostByVersion');
+
+        $this->em->expects($this->once())
+            ->method('getRepository')
+            ->with('AppBundle:Version')
+            ->willReturn($this->repository);
+
+        $this->versionManager->getCostByVersion();
     }
 }

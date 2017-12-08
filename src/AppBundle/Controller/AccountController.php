@@ -13,20 +13,34 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Handler\AccountHandler;
 
 /**
- * @Route("/analytic-account")
+ * @Route("/account")
  */
 class AccountController extends Controller
 {
     /**
-     * @Route("/", name="analytic_account")
+     * @Route("/", name="accounts")
      */
-    public function indexAction(){
-        $issueHandler = $this->get(AccountHandler::class);
-        $accounts = $issueHandler->getAccounts();
+    public function accountsAction(){
+        $accountHandler = $this->get(AccountHandler::class);
+        $accounts = $accountHandler->getAccounts();
 
-        return $this->render('analyticAccount/account.html.twig', [
+        return $this->render('analyticAccount/accounts.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
             'accounts' => $accounts
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/", requirements={"id" = "\d+"}, name="account_detail")
+     */
+    public function accountDetailAction($id){
+        $accountHandler = $this->get(AccountHandler::class);
+        $accountDetail = $accountHandler->getAccountDetail($id);
+
+        return $this->render('analyticAccount/accountDetail.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'account' => $accountDetail['account'],
+            'issues' => $accountDetail['issues']
         ]);
     }
 }

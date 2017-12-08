@@ -13,16 +13,16 @@ class VersionRepository extends \Doctrine\ORM\EntityRepository
     /**
      * @return array
      */
-    public function getTimespentByVersion(){
+    public function getCostByVersion(){
         $qb = $this->createQueryBuilder('v');
-        $qb->select('v.name', 'sum(w.timeSpent * s.costPerHour) as cost');
+        $qb->select('v.id', 'v.name', 'sum(w.timeSpent * s.costPerHour) as cost');
         $qb->leftJoin('v.issues', 'i');
         $qb->leftJoin('i.worklogs', 'w');
         $qb->leftJoin('w.employee', 'e');
         $qb->leftJoin('e.salaries', 's');
         $qb->where('MONTH(w.date) = s.month');
         $qb->andWhere('YEAR(w.date) = s.year');
-        $qb->groupBy('v.name');
+        $qb->groupBy('v.id', 'v.name');
         $query = $qb->getQuery();
 
         return $query->getResult();

@@ -15,7 +15,7 @@ class VersionRepositoryTest extends TestCase
     private $queryBuilder;
     private $repository;
 
-    public function testGetTimespentByVersion(){
+    public function testGetCostByVersion(){
         $this->queryBuilder = $this->getMockBuilder('Doctrine\ORM\QueryBuilder')
             ->disableOriginalConstructor()
             ->getMock();
@@ -23,7 +23,7 @@ class VersionRepositoryTest extends TestCase
         $this->repository = $this->getMockBuilder('AppBundle\Repository\VersionRepository')
             ->disableOriginalConstructor()
             ->setMethodsExcept([
-                'getTimespentByVersion',
+                'getCostByVersion',
             ])
             ->getMock();
 
@@ -39,7 +39,7 @@ class VersionRepositoryTest extends TestCase
 
         $this->queryBuilder->expects($this->once())
             ->method('select')
-            ->with('v.name', 'sum(w.timeSpent * s.costPerHour) as cost')
+            ->with('v.id', 'v.name', 'sum(w.timeSpent * s.costPerHour) as cost')
             ->willReturn($this->returnValue($this->queryBuilder));
 
         $this->queryBuilder->expects($this->at(1))
@@ -74,7 +74,7 @@ class VersionRepositoryTest extends TestCase
 
         $this->queryBuilder->expects($this->once())
             ->method('groupBy')
-            ->with('v.name')
+            ->with('v.id', 'v.name')
             ->willReturn($this->returnValue($this->queryBuilder));
 
         $this->queryBuilder->expects($this->once())
@@ -85,6 +85,6 @@ class VersionRepositoryTest extends TestCase
             ->method('getResult')
             ->will($this->returnValue([]));
 
-        $this->repository->getTimespentByVersion();
+        $this->repository->getCostByVersion();
     }
 }

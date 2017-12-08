@@ -18,4 +18,25 @@ class IssueRepository extends \Doctrine\ORM\EntityRepository
         return $this->createQueryBuilder('i')
             ->getQuery();
     }
+
+    /**
+     * @param $id
+     * @return array
+     */
+    public function getCostDetailOfVersion($id){
+        $qb = $this->createQueryBuilder('i');
+        $qb->select('i.code', 'i.summary', 'sum(w.timeSpent * s.costPerHour) as cost');
+        $qb->leftJoin('i.versions', 'v');
+        $qb->leftJoin('i.worklogs', 'w');
+        $qb->leftJoin('w.employee', 'e');
+        $qb->leftJoin('e.salaries', 's');
+        $qb->where('v.id = :id');
+        $qb->andWhere('MONTH(w.date) = s.month');
+        $qb->andWhere('YEAR(w.date) = s.year');
+        $qb->groupBy('i.code', 'i.summary');
+        $qb->setParameter('id', $id);
+        $query = $qb->getQuery();
+
+        return $query->getResult();
+    }
 }

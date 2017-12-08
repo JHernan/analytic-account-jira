@@ -44,10 +44,18 @@ class VersionManager
     }
 
     /**
+     * @param $id
+     * @return null|object
+     */
+    public function findOneById($id){
+        return $this->em->getRepository('AppBundle:Version')->findOneBy(['id' => $id]);
+    }
+
+    /**
      * @return mixed
      */
-    public function getTimespentByVersion(){
-        return $this->em->getRepository('AppBundle:Version')->getTimespentByVersion();
+    public function getCostByVersion(){
+        return $this->em->getRepository('AppBundle:Version')->getCostByVersion();
     }
 
     /**
