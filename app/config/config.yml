@@ -96,3 +96,11 @@ easy_admin:
                     - { property: 'year', type: 'integer' }
                     - { property: 'hours', type: 'integer' }
                     - { property: 'employee', type: 'easyadmin_autocomplete', type_options: { class: 'AppBundle\Entity\Employee' } }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"

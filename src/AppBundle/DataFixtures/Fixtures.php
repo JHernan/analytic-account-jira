@@ -10,6 +10,7 @@ namespace AppBundle\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use FOS\UserBundle\Util\UserManipulator;
 use Symfony\Component\Yaml\Yaml;
 use AppBundle\Entity\Issue;
 use AppBundle\Entity\Worklog;
@@ -23,6 +24,12 @@ use AppBundle\Entity\Salary;
 class Fixtures extends Fixture
 {
     private $manager;
+    private $userManipulator;
+
+    public function __construct(UserManipulator $userManipulator)
+    {
+        $this->userManipulator = $userManipulator;
+    }
 
     public function load(ObjectManager $manager)
     {
@@ -36,6 +43,7 @@ class Fixtures extends Fixture
         $this->loadSalaries();
         $this->loadIssues();
         $this->loadWorklogs();
+        $this->loadUsers();
     }
 
     private function loadProjects(){
@@ -176,6 +184,15 @@ class Fixtures extends Fixture
         }
 
         $this->manager->flush();
+    }
+
+    public function loadUsers(){
+        $items = Yaml::parse(file_get_contents(__DIR__. '/user.yml'));
+
+        foreach($items as $item){
+            $this->userManipulator->create($item['username'], $item['password'], $item['email'], true, false);
+            $this->userManipulator->addRole($item['username'], $item['role']);
+        }
     }
 
     /**

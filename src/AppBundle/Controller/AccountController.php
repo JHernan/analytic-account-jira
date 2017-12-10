@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Handler\AccountHandler;
 
 /**
- * @Route("/account")
+ * @Route("/")
  */
 class AccountController extends Controller
 {

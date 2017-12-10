@@ -20,3 +20,4 @@ parameters:
 
     project_key: key
     jiraUrl: url
+    mailer_user: email
